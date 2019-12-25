@@ -7,7 +7,11 @@ function resolve(dir) {
 module.exports = {
   publicPath: './',
   chainWebpack: config => {
-    config.resolve.alias.set('@', resolve('src'))
+    config.resolve.alias
+    .set('@assets', resolve('src/assets'))
+    .set('@view', resolve('src/view'))
+    .set('@c', resolve('src/components'))
+    .set('@utils', resolve('src/utils'))
   },
   css:{
     loaderOptions:{

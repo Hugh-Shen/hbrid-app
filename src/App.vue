@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    'hello world'
+    <span>'hello world'</span>
   </div>
 </template>
 
 <style lang="scss">
+  @import '~@assets/style/reset.css';
   #app {
-    color: $color-white
+    height: 100%;
+    color: $color-white;
+    font-size: 24px;
   }
 </style>

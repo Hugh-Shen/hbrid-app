@@ -49,13 +49,11 @@ table {
 /*
 *  设置屏幕占比
 */
-html,body {
+html, body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	color: #333333;
-	/* 不指定为0, 那么图片之间默认会有一个间距 */
-	font-size: 0;
 	/* 不允许去选中文本 */
 	user-select: none;
 }
