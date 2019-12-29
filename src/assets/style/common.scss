@@ -1,8 +1,10 @@
 $color-white: white;
 $color-theme: #d81e06;
-
+$color-blue: rgb(20, 153, 206);
+$color-gray: gray;
+$color-essential: #333333;
 /* 默认文字大小 */
-$base-font: 32px;
+$base-font: 20px;
 
 /* 分割线颜色 */
 $common-line: #e5e5e5;
@@ -15,6 +17,5 @@ $common-border: 1px solid #ccc;
   width: $width;
   height: $height;
   font-size: $fontSize;
-  padding: 0 10px;
   box-sizing: border-box;
 }

@@ -1,18 +1,14 @@
 <template>
-  <div class="activity-container">
-
+  <div id="activity-container">
+    <slot></slot>
   </div>
 </template>
 
 <script>
   export default {
-    props: {
-      activityData: {
-        type: Array,
-        default: () => []
-      }
+    data() {
+      return {}
     },
-    data() {},
     methods: {},
     created() {}
   }
@@ -20,8 +16,7 @@
 
 <style lang="scss" scoped>
   #activity-container {
-    display: flex;
     width: 100%;
-    height: 200px;
+    max-height: 200px;
   }
 </style>

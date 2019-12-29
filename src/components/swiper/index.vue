@@ -9,7 +9,7 @@
       >
         <img class="swiper-item-img"
           :alt="index"
-          :src="item.icon"
+          :src="item"
           :style="{height: swiperData['height'] + 'px', width: '100%'}"
         />
       </swiper-slide>
@@ -27,7 +27,9 @@
       swiperData: {
         type: Object,
         required: true,
-        default: () => {}
+        default: function() {
+          return {}
+        }
       }
     },
     data() {

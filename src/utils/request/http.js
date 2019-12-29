@@ -1,5 +1,7 @@
+import Vue from 'vue'
 import axios from 'axios'
 
+Vue.prototype.$axios = axios
 // axios.defaults.baseURL = 'localhost:8080'
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
