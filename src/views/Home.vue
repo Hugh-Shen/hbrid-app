@@ -12,6 +12,14 @@
       </div>
     </Activity>
     <OptionsMenu />
+    <Seckill :seckillData="seckillData">
+      <CountDown :time="19" />
+    </Seckill>
+    <Activity>
+      <div class="pin-gou-jie">
+        <img src="@assets/images/pinGouJie.gif" alt="拼购节">
+      </div>
+    </Activity>
   </div>
 </template>
 
@@ -20,12 +28,15 @@
   import Swiper from '@c/swiper/index.vue'
   import Activity from '@c/activity/index.vue'
   import OptionsMenu from '@c/optionsMenu/index.vue'
+  import Seckill from '@c/seckill/index.vue'
+  import CountDown from '@c/countDown/index.vue'
   import {getTheRequiredData} from '@utils/serviceApi/index.js'
   import servicePath from '@utils/baseUrl.js'
 
   import '@utils/mockData/swiperData.js'
   import '@utils/mockData/activityData.js'
-  let {swiperData, activityData} = servicePath
+  import '@utils/mockData/seckillData.js'
+  let {swiperData, activityData, seckillData} = servicePath
   export default {
     data() {
       return {
@@ -41,7 +52,8 @@
             }
           }
         },
-        activityData: []
+        activityData: [],
+        seckillData: []
       }
     },
     methods: {
@@ -51,16 +63,20 @@
       Search,
       Swiper,
       Activity,
-      OptionsMenu
+      OptionsMenu,
+      Seckill,
+      CountDown
     },
     created() {
       this.$axios.all([
           getTheRequiredData(swiperData), 
-          getTheRequiredData(activityData)
+          getTheRequiredData(activityData),
+          getTheRequiredData(seckillData)
       ])
-      .then(this.$axios.spread((swiperData, activityData) => {
+      .then(this.$axios.spread((swiperData, activityData, seckillData) => {
         this.swiperData.data = swiperData.data.list.map(item => item.icon)
         this.activityData = activityData.data.list
+        this.seckillData = seckillData.data.list
       }))
     }
   }
@@ -69,7 +85,6 @@
 <style lang="scss" scoped>
   #home {
     @include init-page();
-    
   }
   .activity-container {
     width: 100%;
@@ -78,6 +93,16 @@
     & > img {
       display: inline-block;
       width: 33.33%;
+    }
+  }
+  .pin-gou-jie {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    & > img {
+      width: 100%;
+      height: 100%;
+      vertical-align: middle;
     }
   }
 </style>

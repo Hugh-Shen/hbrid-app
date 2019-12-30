@@ -6,6 +6,13 @@ $color-essential: #333333;
 /* 默认文字大小 */
 $base-font: 20px;
 
+/* 标题文字 */
+$font-title: 24px;
+$font-weight: 700;
+
+/* 组件上边距 */
+$margin-top: 10px;
+
 /* 分割线颜色 */
 $common-line: #e5e5e5;
 
@@ -16,6 +23,9 @@ $common-border: 1px solid #ccc;
 @mixin init-page($width:100%, $height:100%, $fontSize:$base-font,) {
   width: $width;
   height: $height;
+  overflow: hidden;
+  overflow-y: auto;
   font-size: $fontSize;
   box-sizing: border-box;
+  background: #efefef;
 }

@@ -5,7 +5,8 @@ const pathUrl = 'http://localhost:8080/'
 const servicePath = {
   test: `${pathUrl}selectAll`,
   swiperData: `${pathUrl}swiperData`,
-  activityData: `${pathUrl}activityData`
+  activityData: `${pathUrl}activityData`,
+  seckillData: `${pathUrl}seckillData`
 }
 
 export default servicePath

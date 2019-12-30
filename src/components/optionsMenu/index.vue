@@ -80,6 +80,8 @@
     flex-wrap: wrap;
     width: 100%;
     box-sizing: border-box;
+    background: $color-white;
+    padding: 10px 0;
     .options-menu-item {
       display: flex;
       flex-direction: column;
