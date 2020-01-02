@@ -4,7 +4,7 @@ $color-blue: rgb(20, 153, 206);
 $color-gray: gray;
 $color-essential: #333333;
 /* 默认文字大小 */
-$base-font: 20px;
+$base-font: 22px;
 
 /* 标题文字 */
 $font-title: 24px;
@@ -28,4 +28,20 @@ $common-border: 1px solid #ccc;
   font-size: $fontSize;
   box-sizing: border-box;
   background: #efefef;
+}
+
+/* 限制文本行数 */ 
+@mixin text-line() {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 清除浮动 */
+@mixin clearFolat() {
+  display: table;
+  content: "";
 }

@@ -6,7 +6,8 @@ const servicePath = {
   test: `${pathUrl}selectAll`,
   swiperData: `${pathUrl}swiperData`,
   activityData: `${pathUrl}activityData`,
-  seckillData: `${pathUrl}seckillData`
+  seckillData: `${pathUrl}seckillData`,
+  commodityData: `${pathUrl}commodityData`
 }
 
 export default servicePath

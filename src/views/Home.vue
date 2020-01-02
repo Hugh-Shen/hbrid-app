@@ -20,6 +20,7 @@
         <img src="@assets/images/pinGouJie.gif" alt="拼购节">
       </div>
     </Activity>
+    <CommodityList />
   </div>
 </template>
 
@@ -30,7 +31,8 @@
   import OptionsMenu from '@c/optionsMenu/index.vue'
   import Seckill from '@c/seckill/index.vue'
   import CountDown from '@c/countDown/index.vue'
-  import {getTheRequiredData} from '@utils/serviceApi/index.js'
+  import CommodityList from '@c/commodityList/index.vue'
+  import getTheRequiredData from '@utils/serviceApi/index.js'
   import servicePath from '@utils/baseUrl.js'
 
   import '@utils/mockData/swiperData.js'
@@ -53,11 +55,10 @@
           }
         },
         activityData: [],
-        seckillData: []
+        seckillData: [],
       }
     },
     methods: {
-
     },
     components: {
       Search,
@@ -65,7 +66,8 @@
       Activity,
       OptionsMenu,
       Seckill,
-      CountDown
+      CountDown,
+      CommodityList
     },
     created() {
       this.$axios.all([
