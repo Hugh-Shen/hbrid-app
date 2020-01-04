@@ -65,7 +65,7 @@
     width: 100%;
     height: 90px;
     box-sizing: border-box;
-    background: rgb(238, 34, 68);
+    background: rgba(238, 34, 68, 0);
     padding: 5px 10px;
     position: fixed;
     top: 0;
@@ -78,8 +78,8 @@
       height: 100%;
       .search-user-photo {
         flex-shrink: 0;
-        width: 100px;
-        height: 100%;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
       }
       .search-input-container {

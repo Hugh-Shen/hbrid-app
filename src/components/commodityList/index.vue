@@ -13,8 +13,11 @@
         :style="imagesStyle[index]" 
       />
       <div class="item-footer">
-        <span></span>
-        <span class="item-footer-name">{{item.name}}</span>
+        <div :class="['item-footer-name', {'is-direct-style' : item.isDirect}]">
+          <span class="item-footer-tag" v-if="item.isHave">直营</span>
+          <span class="item-footer-tag direct" v-if="item.isDirect">缺货</span>
+          {{item.name}}
+        </div>
         <div class="item-details">
           <span>￥{{item.price | priceValue}}</span>
           <span>销量：{{item.volume}}</span>
@@ -64,14 +67,14 @@
             let elHeight = item.clientHeight + this.MARGIN_HEIGHT;
             if (leftHeightTotal <= rightHeightTotal) {
               itemStyle = {
-                left: '0px',
+                left: '5px',
                 top: leftHeightTotal + 'px'
               }
               leftHeightTotal += elHeight
             } else {
               itemStyle = {
-                right: '0px',
-                top: rightHeightTotal + 'px'
+                right: '5px',
+                top: rightHeightTotal + 'px' 
               }
               rightHeightTotal += elHeight
             }
@@ -105,24 +108,41 @@
    margin-top: $margin-top;
    position: relative;
    .commodity-item {
-     width: 50%;
+     width: 48%;
      padding: 10px;
      box-sizing: border-box;
+     border-radius: 8px;
      position: absolute;
      background: $color-white;
      & > img {
        width: 100%;
      }
      .item-footer {
+       padding: 10px 0;
+       &-tag {
+        background: $color-theme;
+        padding: 0 8px;
+        border-radius: 5px;
+        color: $color-white;
+       }
+       .direct {
+         background: $color-gray;
+       }
        &-name {
-         @include text-line();
-         font-size: $base-font;
-         font-weight: 700;
+        @include text-line();
+        font-size: $base-font;
+        font-weight: 700;
+        line-height: 26px;
+       }
+       & > .is-direct-style {
+         color: $color-gray
        }
      }
      .item-details {
+        margin-top: $margin-top;
         display: flex;
         justify-content: space-between;
+        font-size: $base-font;
         & > span:first-child {
           font-weight: 700;
           color: $color-theme;

@@ -1,6 +1,19 @@
 <template>
-  <div id='home'>
-    <Search  />
+  <div id='home' @scroll="scrollChange">
+    <NavigationBar :show="false"
+      :navgigationBarStyle="navgigationBarStyle"
+    >
+      <template v-slot:left>
+        <img :src="slotData.left" alt="菜单">
+      </template>
+      <template v-slot:main>
+        <SearchInput :searchInputStyle="slotData.search" />
+      </template>
+      <template v-slot:right>
+        <img :src="slotData.right" alt="消息">
+      </template>
+    </NavigationBar>
+    <!-- <Search  /> -->
     <Swiper :swiperData="swiperData" />
     <Activity>
       <div class="activity-container">
@@ -26,6 +39,8 @@
 
 <script>
   import Search from '@c/search/index.vue'
+  import SearchInput from '@c/searchInput/index.vue'
+  import NavigationBar from '@c/navigationBar/index.vue'
   import Swiper from '@c/swiper/index.vue'
   import Activity from '@c/activity/index.vue'
   import OptionsMenu from '@c/optionsMenu/index.vue'
@@ -56,11 +71,50 @@
         },
         activityData: [],
         seckillData: [],
+        defaultSlotData: {
+          default: {
+            search: {
+              icon: require('@assets/images/search.svg'),
+              color: '#d7d7d7',
+              bgColor: '#ffffff'
+            },
+            left: require('@assets/images/more-white.svg'),
+            right: require('@assets/images/message-white.svg')
+          },
+          heightLine: {
+            search: {
+              icon: require('@assets/images/search-white.svg'),
+              color: '#ffffff',
+              bgColor: '#d7d7d7'
+            },
+            left: require('@assets/images/more.svg'),
+            right: require('@assets/images/message.svg')
+          }
+        },
+        slotData: {
+          left: require('@assets/images/more-white.svg'),
+          right: require('@assets/images/message-white.svg')
+        },
+        POINT_OF_AIM: 100,
+        navgigationBarStyle: {
+          position: 'fixed',
+          left: '0',
+          top: '0',
+          backgroundColor: ''
+        }
       }
     },
     methods: {
+      scrollChange(e) {
+        let height = e.target.scrollTop
+        let scale =  height / this.POINT_OF_AIM
+        this.slotData = scale >= height ? this.defaultSlotData.default : this.defaultSlotData.heightLine
+        this.navgigationBarStyle.backgroundColor = 'rgba(255, 255, 255, ' + scale + ')'
+      }
     },
     components: {
+      NavigationBar,
+      SearchInput,
       Search,
       Swiper,
       Activity,
