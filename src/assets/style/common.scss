@@ -45,3 +45,12 @@ $common-border: 1px solid #ccc;
   display: table;
   content: "";
 }
+
+/* 三角形 */
+@mixin triangle() {
+  width: 0;
+  height: 0;
+  border-top: 10px solid $color-theme;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
