@@ -33,7 +33,7 @@
         <img src="@assets/images/pinGouJie.gif" alt="拼购节">
       </div>
     </Activity>
-    <CommodityList />
+    <CommodityList layout="waterfall" />
   </div>
 </template>
 
