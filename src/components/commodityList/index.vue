@@ -1,16 +1,16 @@
 <template>
-  <div id='commodity-list-container'
+  <div :id="layoutClass"
     :style="{height: commodityContianer}"
   >
-    <div class="commodity-item"
+    <div :class="layoutItemClass"
       v-for="(item, index) in commodityData"
       :key="item.id"
-      ref="commodityItems"
       :style="styleItems[index]"
+      ref="commodityItems"
     >
       <img :src="item.img" 
         :alt="item.name"
-        :style="imagesStyle[index]" 
+        :style="imagesStyle[index]"
       />
       <div class="item-footer">
         <div :class="['item-footer-name', {'is-direct-style' : item.isDirect}]">
@@ -33,8 +33,16 @@
   import '@utils/mockData/commodityData.js'
   let{commodityData} = servicePath
   export default {
+    props: {
+      layout: {
+        type: String,
+        default: 'vertical'
+      }
+    },
     data() {
       return {
+        layoutClass: '',
+        layoutItemClass: '',
         commodityData: [],
         MAX_IMAGE_HEIGHT: 240,
         MIN_IMAGE_HEIGHT: 80,
@@ -50,10 +58,12 @@
         return result
       },
       initImagesHeight() {
-        this.commodityData.forEach((item) => {
-          let height =  this.returnRandomHeight() + 'px'
-          this.imagesStyle.push({height : height})
-        })
+        if(this.layout == "waterfall") {
+          this.commodityData.forEach((item) => {
+            let height =  this.returnRandomHeight() + 'px'
+            this.imagesStyle.push({height : height})
+          })
+        }
       },
       waterfallFlowLayout() {
         let eles = this.$refs.commodityItems;
@@ -84,12 +94,29 @@
         if (!this.isScroll) {
           this.commodityContianer = (leftHeightTotal > rightHeightTotal ? leftHeightTotal : rightHeightTotal) + 'px';
         }
+      },
+      controlTheLayout() {
+        switch(this.layout) {
+          case 'vertical':
+            this.layoutClass = 'commodity-vertical-container'
+            this.layoutItemClass = 'commodity-vertical-item'
+            break;
+          case 'grid':
+            this.layoutClass = 'commodity-grid-container'
+            this.layoutItemClass = 'commodity-grid-item'
+            break;
+          case 'waterfall':
+            this.layoutClass = 'commodity-list-container'
+            this.layoutItemClass = 'commodity-item'
+            break;
+        }
       }
     },
     created() {
       getTheRequiredData(commodityData).then(res => {
         this.commodityData = res.data.list
         this.initImagesHeight()
+        this.controlTheLayout()
         this.$nextTick(() => {
           this.waterfallFlowLayout()
         })
@@ -99,58 +126,146 @@
 </script>
 
 <style lang="scss" scoped>
- #commodity-list-container {
-   display: flex;
-   flex-wrap: wrap;
-   width: 100%;
-   padding: 0 10px;
-   box-sizing: border-box;
-   margin-top: $margin-top;
-   position: relative;
-   .commodity-item {
-     width: 48%;
-     padding: 10px;
-     box-sizing: border-box;
-     border-radius: 8px;
-     position: absolute;
-     background: $color-white;
-     & > img {
-       width: 100%;
+  /* 公共样式 */
+  .item-footer {
+    padding: 10px 0;
+    &-tag {
+     background: $color-theme;
+     padding: 0 8px;
+     border-radius: 5px;
+     color: $color-white;
+    }
+    .direct {
+      background: $color-gray;
+    }
+    &-name {
+     @include text-line();
+     font-size: $base-font;
+     font-weight: 700;
+     line-height: 26px;
+    }
+    & > .is-direct-style {
+      color: $color-gray
+    }
+  }
+  .item-details {
+     margin-top: $margin-top;
+     display: flex;
+     justify-content: space-between;
+     font-size: $base-font;
+     & > span:first-child {
+       font-weight: 700;
+       color: $color-theme;
      }
-     .item-footer {
-       padding: 10px 0;
-       &-tag {
-        background: $color-theme;
-        padding: 0 8px;
-        border-radius: 5px;
-        color: $color-white;
-       }
-       .direct {
-         background: $color-gray;
-       }
-       &-name {
-        @include text-line();
-        font-size: $base-font;
-        font-weight: 700;
-        line-height: 26px;
-       }
-       & > .is-direct-style {
-         color: $color-gray
-       }
+     & > span:last-child {
+       color: $color-gray
      }
-     .item-details {
-        margin-top: $margin-top;
+  }
+  /* 瀑布流 layout */
+  #commodity-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-top: $margin-top;
+    position: relative;
+    .commodity-item {
+      width: 48%;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      position: absolute;
+      background: $color-white;
+      & > img {
+        width: 100%;
+      }
+    }
+  }
+  /* 网格 layout */
+  #commodity-grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+    overflow: hidden;
+    overflow-y: auto;
+    .commodity-grid-item {
+      width: 49%;
+      padding: 10px;
+      margin-top: $margin-top;
+      box-sizing: border-box;
+      background: $color-white;
+      border-radius: 8px;
+      & > img {
+        width: 100%;
+        height: 200px;
+      }
+    }
+  }
+  /* 垂直 layout */
+  #commodity-vertical-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0 10px;
+    margin-top: $margin-top;
+    background: $color-white;
+    box-sizing: border-box;
+    .commodity-vertical-item {
+      display: flex;
+      width: 100%;
+      height: 200px;
+      padding: 10px 0;
+      border-bottom: $common-border;
+      & > img {
+        width: 200px;
+        height: 100%;
+      }
+      .item-footer {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        font-size: $base-font;
-        & > span:first-child {
-          font-weight: 700;
-          color: $color-theme;
+        flex-grow: 1;
+        height: 100%;
+        margin-left: 20px;
+        padding: 10px 0;
+        box-sizing: border-box;
+        &-tag {
+         background: $color-theme;
+         padding: 0 8px;
+         border-radius: 5px;
+         color: $color-white;
         }
-        & > span:last-child {
+        .direct {
+          background: $color-gray;
+        }
+        &-name {
+         @include text-line();
+         font-size: $base-font;
+         font-weight: 700;
+         line-height: 26px;
+        }
+        & > .is-direct-style {
           color: $color-gray
         }
-     }
-   }
- }
+        .item-details {
+          margin-top: $margin-top;
+          display: flex;
+          justify-content: space-between;
+          font-size: $base-font;
+          & > span:first-child {
+            font-weight: 700;
+            color: $color-theme;
+          }
+          & > span:last-child {
+            color: $color-gray
+          }
+        }
+      }
+    }
+  }
 </style>

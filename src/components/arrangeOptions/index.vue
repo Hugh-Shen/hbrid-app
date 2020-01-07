@@ -31,6 +31,10 @@
         </div>
       </div>
     </transition>
+    <div class="shade"
+      v-if="childShow"
+      @click="handleClickCloseToChild()"
+    ></div>
   </div>
 </template>
 
@@ -93,6 +97,9 @@
           })
         })
         this.childShow = false
+      },
+      handleClickCloseToChild() {
+        this.childShow = false
       }
     },
     watch: {},
@@ -110,6 +117,8 @@
     .tab-bar-item-container {
       width: 100%;
       height: 80px;
+      z-index: 999;
+      background: $color-white;
       .tab-bar-item-active {
         color: $color-theme;
       }
@@ -130,6 +139,7 @@
     }
     .item-child {
       background: $color-white;
+      z-index: 999;
       .item-child-list-active {
         color: $color-theme;
       }
@@ -148,6 +158,13 @@
         }
       }
     }
+  }
+  .shade {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 222;
+    background: rgba($color: #000000, $alpha: .4)
   }
   .animation-enter-active {
     animation: open .5s 

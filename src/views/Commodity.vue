@@ -5,12 +5,14 @@
     >
     </NavigationBar>
     <ArrangeOptions />
+    <CommodityList layout="grid"/>
   </div>
 </template>
 
 <script>
   import NavigationBar from '@c/navigationBar/index.vue'
   import ArrangeOptions from '@c/arrangeOptions/index.vue'
+  import CommodityList from '@c/commodityList/index.vue'
   export default {
     data() {
       return {}
@@ -23,7 +25,8 @@
     watch: {},
     components: {
       NavigationBar,
-      ArrangeOptions
+      ArrangeOptions,
+      CommodityList
     }
   }
 </script>
