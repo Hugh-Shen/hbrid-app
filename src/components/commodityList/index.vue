@@ -1,6 +1,7 @@
 <template>
   <div :id="layoutClass"
     :style="{height: commodityContianer}"
+    :class="{'is-scroll': isScroll}"
   >
     <div :class="layoutItemClass"
       v-for="(item, index) in commodityData"
@@ -13,9 +14,9 @@
         :style="imagesStyle[index]"
       />
       <div class="item-footer">
-        <div :class="['item-footer-name', {'is-direct-style' : item.isDirect}]">
-          <span class="item-footer-tag" v-if="item.isHave">直营</span>
-          <span class="item-footer-tag direct" v-if="item.isDirect">缺货</span>
+        <div :class="['item-footer-name', {'is-have-style': !item.isHave}]">
+          <span class="item-footer-tag" v-if="item.isDirect">直营</span>
+          <span class="item-footer-tag have" v-if="!item.isHave">缺货</span>
           {{item.name}}
         </div>
         <div class="item-details">
@@ -37,6 +38,14 @@
       layout: {
         type: String,
         default: 'vertical'
+      },
+      isScroll: {
+        type: Boolean,
+        default: true
+      },
+      sortRule: {
+        type: String,
+        default: '1'
       }
     },
     data() {
@@ -49,7 +58,8 @@
         imagesStyle: [],
         MARGIN_HEIGHT: 5,
         styleItems: [],
-        commodityContianer: ""
+        commodityContianer: "",
+        sortData: ""
       }
     },
     methods: {
@@ -117,17 +127,50 @@
             })
             break;
         }
+      },
+      setSortRule(type) {
+        switch(type) {
+          case "1":
+            this.sortData = this.commodityData.slice(0)
+            break;
+          case "2":
+            this.sortArithmetic("isHave")
+            break;
+        }
+      },
+      sortArithmetic(key) {
+        this.commodityData.sort((current, next) => {
+          let currentVal = current[key]
+          let nextVal = next[key]
+          if(typeof currentVal == 'boolean' && typeof nextVal == 'boolean') {
+            if(currentVal) {
+              return -1
+            }
+            if(nextVal) {
+              return 1
+            }
+            return 0
+          }
+          if(parseFloat(currentVal) >= parseFloat(nextVal)) {
+            return -1
+          }
+          return 1
+        })
       }
     },
     watch: {
       layout: function(newVal) {
-        console.log(newVal)
         this.controlTheLayout(newVal)
+      },
+      sortRule: function(newVal) {
+        console.log(newVal)
+        this.setSortRule(newVal)
       }
     },
     created() {
       getTheRequiredData(commodityData).then(res => {
         this.commodityData = res.data.list
+        this.setSortRule(this.sortRule)
         this.controlTheLayout()
       })
     }
@@ -135,6 +178,10 @@
 </script>
 
 <style lang="scss" scoped>
+  .is-scroll {
+    overflow: hidden;
+    overflow-y: auto;
+  }
   /* 公共样式 */
   .item-footer {
     padding: 10px 0;
@@ -144,7 +191,7 @@
      border-radius: 5px;
      color: $color-white;
     }
-    .direct {
+    .have {
       background: $color-gray;
     }
     &-name {
@@ -153,7 +200,7 @@
      font-weight: 700;
      line-height: 26px;
     }
-    & > .is-direct-style {
+    & > .is-have-style {
       color: $color-gray
     }
   }
@@ -250,7 +297,7 @@
          border-radius: 5px;
          color: $color-white;
         }
-        .direct {
+        .have {
           background: $color-gray;
         }
         &-name {
@@ -259,7 +306,7 @@
          font-weight: 700;
          line-height: 26px;
         }
-        & > .is-direct-style {
+        & > .is-have-style {
           color: $color-gray
         }
         .item-details {

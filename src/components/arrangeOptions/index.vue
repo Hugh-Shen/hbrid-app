@@ -44,7 +44,7 @@
       return {
         tabBarListData: [
           {
-            id: 1,
+            id: "1",
             title: '默认',
             child: [
               { 
@@ -62,12 +62,12 @@
             ]
           },
           { 
-            id: 2,
+            id: "2",
             title: '有货优先',
             child: []
           },
           {
-            id: 3,
+            id: "3",
             title: '直营优先',
             child: []
           }
@@ -82,17 +82,18 @@
           this.childShow = false
           return
         }
-        if(e.id == this.selectOption.id) {
+        if(e.child.length > 0 && e.id == this.selectOption.id) {
           this.childShow = true
         }
         this.selectOption = e
       },
       handleClickToTheChildToChangeTheRank(e) {
+        this.selectOption = e
         this.tabBarListData.forEach(item => {
           item.child.forEach(children => {
-            if(item.id = this.selectOption.id) {
-              item.id = e.id
-              item.title = e.title
+            if(children.id == this.selectOption.id) {
+              item.id = children.id
+              item.title = children.title
             }
           })
         })
@@ -102,7 +103,11 @@
         this.childShow = false
       }
     },
-    watch: {},
+    watch: {
+      selectOption: function(newVal) {
+        this.$emit('arrgangeOptionsOnChange', newVal['id'])
+      }
+    },
     created() {
       this.selectOption = this.tabBarListData[0]
     }

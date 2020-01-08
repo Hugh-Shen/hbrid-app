@@ -10,8 +10,11 @@
         />
       </template>
     </NavigationBar>
-    <ArrangeOptions />
-    <CommodityList :layout="defaultLayout['type']"/>
+    <ArrangeOptions  @arrgangeOptionsOnChange="handleSortData"/>
+    <CommodityList :layout="defaultLayout['type']"
+      :isScroll="false"
+      :sortRule="sortType"
+    />
   </div>
 </template>
 
@@ -39,7 +42,8 @@
             type: 'waterfall',
             image: require('@assets/images/waterfall-type.svg')
           }
-        ]
+        ],
+        sortType: "1"
       }
     },
     methods: {
@@ -53,6 +57,9 @@
           return this.defaultLayout = this.layoutTypeImages[index]
         }
         this.defaultLayout = this.layoutTypeImages[index - 1]
+      },
+      handleSortData(e) {
+        this.sortType = e
       }
     },
     watch: {},
