@@ -122,7 +122,7 @@
     .tab-bar-item-container {
       width: 100%;
       height: 80px;
-      z-index: 999;
+      z-index: 4;
       background: $color-white;
       .tab-bar-item-active {
         color: $color-theme;

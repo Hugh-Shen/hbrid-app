@@ -5,9 +5,10 @@
   >
     <div :class="layoutItemClass"
       v-for="(item, index) in commodityData"
-      :key="item.id"
+      :key="item.id" 
       :style="styleItems[index]"
       ref="commodityItems"
+      @click="jumpToDetails(item)"
     >
       <img :src="item.img" 
         :alt="item.name"
@@ -133,8 +134,17 @@
           case "1":
             this.sortData = this.commodityData.slice(0)
             break;
+          case '1-2':
+            this.sortArithmetic("price")
+            break;
+          case '1-3':
+            this.sortArithmetic("volume")
+            break;
           case "2":
             this.sortArithmetic("isHave")
+            break;
+          case "3":
+            this.sortArithmetic("isDirect")
             break;
         }
       },
@@ -156,6 +166,13 @@
           }
           return 1
         })
+      },
+      jumpToDetails(e) {
+        if(!e.isHave) {
+          this.$dialog({
+            title: '暂无库存'
+          })
+        }
       }
     },
     watch: {
@@ -163,7 +180,6 @@
         this.controlTheLayout(newVal)
       },
       sortRule: function(newVal) {
-        console.log(newVal)
         this.setSortRule(newVal)
       }
     },
