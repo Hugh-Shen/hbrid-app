@@ -59,15 +59,7 @@
       return {
         swiperData: {
           height: 200,
-          data: [],
-          swiperOption: {
-            autoplay: true,
-            autoHeight: true,
-            pagination: {
-              el: '.swiper-pagination',
-              type: 'bullets'
-            }
-          }
+          data: []
         },
         activityData: [],
         seckillData: [],

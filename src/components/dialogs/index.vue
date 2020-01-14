@@ -5,7 +5,7 @@
     <transition name="fade">
       <div class="dialogs">
         <div class="dialogs-main">
-          <img src="" alt="">
+          <img :src="icon" alt="">
         </div>
         <div class="dialogs-footer">{{title}}</div>
       </div>
@@ -31,6 +31,9 @@
       handleClickToHide() {
         this.show = false;
       }
+    },
+    created() {
+      this.icon = images[this.type]
     }
   }
 </script>
@@ -62,10 +65,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 300px;
-        height: 250px;
+        width: 260px;
+        height: 210px;
         // background: $color-white;
         box-sizing: border-box;
+        & > img {
+          width: 100px;
+          height: 100px;
+        }
       }
       .dialogs-footer {
         width: 100%;

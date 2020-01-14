@@ -3,7 +3,7 @@
     <div class="options-menu-item"
       v-for="(item, index) in optionsData"
       :key="index"
-      @click="handleClickToCorrelationItem(item.to, item.title)"
+      @click="handleClickToCorrelationItem(item)"
     >
       <img :src="item.icon" :alt="item.id" />
       <span>{{item.title}}</span>
@@ -20,7 +20,7 @@
             id: '1',
             icon: require('@assets/images/jingDongChaoShi.png'),
             title: '星际超市',
-            to: 'commodity'
+            to: '/commodity'
           },
           {
             id: '2',
@@ -71,11 +71,11 @@
       }
     },
     methods: {
-      handleClickToCorrelationItem(url, title) {
+      handleClickToCorrelationItem(e) {
         this.$router.push({
-          name: url,
-          params: {
-            title
+          path: e.to,
+          query: {
+            target: e.title
           }
         })
       }

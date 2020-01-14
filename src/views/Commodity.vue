@@ -1,7 +1,7 @@
 <template>
   <div id="commodity">
     <NavigationBar @handleClickLeftEvent="handleClickToBack"
-      :title="this.$route.params.title"
+      :title="title"
     >
       <template slot="right">
         <img :src="defaultLayout['image']" 
@@ -43,7 +43,8 @@
             image: require('@assets/images/waterfall-type.svg')
           }
         ],
-        sortType: "1"
+        sortType: "1",
+        title: ''
       }
     },
     methods: {
@@ -65,6 +66,7 @@
     watch: {},
     created() {
       this.defaultLayout = this.layoutTypeImages[0]
+      this.title = this.$route.query.target
     },
     components: {
       NavigationBar,

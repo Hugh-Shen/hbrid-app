@@ -169,10 +169,16 @@
       },
       jumpToDetails(e) {
         if(!e.isHave) {
-          this.$dialog({
+          return this.$dialog({
             title: '暂无库存'
           })
         }
+        this.$router.push({
+          name: 'detail',
+          params: {
+            commodity: e
+          }
+        })
       }
     },
     watch: {
@@ -238,9 +244,10 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    padding: 0 10px;
+    padding: 10px 10px;
     box-sizing: border-box;
-    margin-top: $margin-top;
+    overflow: hidden;
+    overflow-y: auto;
     position: relative;
     .commodity-item {
       width: 48%;
@@ -283,8 +290,7 @@
     height: 100%;
     overflow: hidden;
     overflow-y: auto;
-    padding: 0 10px;
-    margin-top: $margin-top;
+    padding: 10px 10px;
     background: $color-white;
     box-sizing: border-box;
     .commodity-vertical-item {

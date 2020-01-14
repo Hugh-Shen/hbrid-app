@@ -119,6 +119,7 @@
     display: flex;
     flex-direction: column;
     background: $color-white;
+    border-bottom: $common-border;
     .tab-bar-item-container {
       width: 100%;
       height: 80px;
