@@ -19,6 +19,9 @@ $common-line: #e5e5e5;
 /* 通用边框颜色 */
 $common-border: 1px solid #ccc;
 
+/* 背景颜色 */
+$bg-color: #e4e4e4;
+
 /* 页面初始样式 */
 @mixin init-page($width:100%, $height:100%, $fontSize:$base-font,) {
   width: $width;

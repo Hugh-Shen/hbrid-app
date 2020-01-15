@@ -10,7 +10,7 @@
         <img class="swiper-item-img"
           :alt="index"
           :src="item"
-          :style="{height: swiperData['height'] + 'px', width: '100%'}"
+          :style="{height: swiperData['height'] + 'px', width: '100%', display: 'block'}"
         />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -74,6 +74,7 @@
 
 <style lang="scss" scoped>
   #swiper-container {
+    
   }
   .swiper-pagination-fraction {
     left: auto;
