@@ -9,6 +9,7 @@
   import TabBar from '@c/tabBar/index.vue'
   
   export default {
+    name: 'main',
     data() {
       return {
         currentComponents: 'Home'
@@ -34,5 +35,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    position: absolute;
   }
 </style>

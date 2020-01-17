@@ -1,5 +1,8 @@
 <template>
-  <div id='home' @scroll="scrollChange">
+  <div id='home' 
+    @scroll="scrollChange"
+    ref="home"
+  >
     <NavigationBar :show="false"
       :navgigationBarStyle="navgigationBarStyle"
     >
@@ -93,14 +96,15 @@
           left: '0',
           top: '0',
           backgroundColor: ''
-        }
+        },
+        scrollHeight: 0
       }
     },
     methods: {
       scrollChange(e) {
-        let height = e.target.scrollTop
-        let scale =  height / this.POINT_OF_AIM
-        this.slotData = scale >= height ? this.defaultSlotData.default : this.defaultSlotData.heightLine
+        this.scrollHeight = e.target.scrollTop
+        let scale =  this.scrollHeight / this.POINT_OF_AIM
+        this.slotData = scale >= this.scrollHeight ? this.defaultSlotData.default : this.defaultSlotData.heightLine
         this.navgigationBarStyle.backgroundColor = 'rgba(255, 255, 255, ' + scale + ')'
       }
     },
@@ -126,6 +130,9 @@
         this.activityData = activityData.data.list
         this.seckillData = seckillData.data.list
       }))
+    },
+    activated() {
+      this.$refs.home.scrollTop = this.scrollHeight
     }
   }
 </script>
@@ -133,6 +140,7 @@
 <style lang="scss" scoped>
   #home {
     @include init-page();
+    position: absolute;
   }
   .activity-container {
     width: 100%;

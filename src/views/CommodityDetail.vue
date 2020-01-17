@@ -97,6 +97,7 @@
     overflow-y: auto;
     background: $bg-color;
     font-size: $base-font;
+    position: absolute;
     .commodity-info {
       padding: 5px 10px;
       box-sizing: border-box;

@@ -20,7 +20,7 @@
             id: '1',
             icon: require('@assets/images/jingDongChaoShi.png'),
             title: '星际超市',
-            to: '/commodity'
+            to: 'commodity'
           },
           {
             id: '2',
@@ -73,9 +73,9 @@
     methods: {
       handleClickToCorrelationItem(e) {
         this.$router.push({
-          path: e.to,
-          query: {
-            target: e.title
+          name: e.to,
+          params: {
+            routeType: 'push'
           }
         })
       }

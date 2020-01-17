@@ -1,5 +1,8 @@
 <template>
-  <div id="commodity">
+  <div id="commodity"
+    @scroll="scrollChange"
+    ref="commodity"
+  >
     <NavigationBar @handleClickLeftEvent="handleClickToBack"
       :title="title"
     >
@@ -23,6 +26,7 @@
   import ArrangeOptions from '@c/arrangeOptions/index.vue'
   import CommodityList from '@c/commodityList/index.vue'
   export default {
+    name: 'commodity',
     data() {
       return {
         defaultLayout: {},
@@ -44,7 +48,8 @@
           }
         ],
         sortType: "1",
-        title: ''
+        title: '',
+        scrollHeight: 0
       }
     },
     methods: {
@@ -61,12 +66,18 @@
       },
       handleSortData(e) {
         this.sortType = e
+      },
+      scrollChange(e) {
+        this.scrollHeight = e.target.scrollTop
       }
     },
     watch: {},
     created() {
       this.defaultLayout = this.layoutTypeImages[0]
-      this.title = this.$route.query.target
+      this.title = '星际超市'
+    },
+    activated() {
+      this.$refs.commodity.scrollTop = this.scrollHeight
     },
     components: {
       NavigationBar,
@@ -79,5 +90,6 @@
 <style lang="scss" scoped>
   #commodity {
     @include init-page();
+    position: absolute;
   }
 </style>

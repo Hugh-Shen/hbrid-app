@@ -2,6 +2,8 @@
   <div :id="layoutClass"
     :style="{height: commodityContianer}"
     :class="{'is-scroll': isScroll}"
+    @scroll="scrollChange"
+    ref="commodityList"
   >
     <div :class="layoutItemClass"
       v-for="(item, index) in commodityData"
@@ -60,7 +62,8 @@
         MARGIN_HEIGHT: 5,
         styleItems: [],
         commodityContianer: "",
-        sortData: ""
+        sortData: "",
+        scrollHeight: 0
       }
     },
     methods: {
@@ -176,9 +179,13 @@
         this.$router.push({
           name: 'detail',
           params: {
-            commodity: e
+            commodity: e,
+            routeType: 'push'
           }
         })
+      },
+      scrollChange(e) {
+        this.scrollHeight = e.target.scrollTop
       }
     },
     watch: {
@@ -195,6 +202,9 @@
         this.setSortRule(this.sortRule)
         this.controlTheLayout()
       })
+    },
+    activated() {
+      this.$refs.commodityList.scrollTop = this.scrollHeight
     }
   }
 </script>
