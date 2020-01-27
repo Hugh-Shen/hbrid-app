@@ -9,7 +9,7 @@
   import TabBar from '@c/tabBar/index.vue'
   
   export default {
-    name: 'main',
+    name: 'root',
     data() {
       return {
         currentComponents: 'Home'

@@ -2,8 +2,12 @@
   <div id='button-container'
     :style="btnStyle"
   >
-    <div>加入购物车</div>
-    <div>立即购买</div>
+    <div  v-if="isAddCart">加入购物车</div>
+    <div @click="handleClickToBuy"
+      :style="btnStyle.children"
+    >
+      立即购买
+    </div>
   </div>
 </template>
 
@@ -15,11 +19,20 @@
         default: function() {
           return {}
         }
+      },
+      isAddCart: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
       return {
 
+      }
+    },
+    methods: {
+      handleClickToBuy() {
+        this.$emit('handleClickToBuy')
       }
     }
   }
@@ -32,20 +45,19 @@
     height: 100px;
     padding: 10px;
     box-sizing: border-box;
-    background: $color-white;
-    border-top: $common-border;
     & > div {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 50%;
       height: 100%;
+      color:  $color-white;
     }
     & > div:first-child {
-      background: $color-theme;
+      background: darkgoldenrod;
     }
     & > div:last-child {
-      background: darkgoldenrod;
+      background: $color-theme;
     }
   }
 </style>

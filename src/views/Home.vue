@@ -50,9 +50,9 @@
   import Seckill from '@c/seckill/index.vue'
   import CountDown from '@c/countDown/index.vue'
   import CommodityList from '@c/commodityList/index.vue'
+
   import getTheRequiredData from '@utils/serviceApi/index.js'
   import servicePath from '@utils/baseUrl.js'
-
   import '@utils/mockData/swiperData.js'
   import '@utils/mockData/activityData.js'
   import '@utils/mockData/seckillData.js'

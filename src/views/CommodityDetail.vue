@@ -24,7 +24,10 @@
           <div>{{commodityData.name}}</div>
         </div>
         <ProductDescription :rendererData="commodityData"></ProductDescription>
-        <Button :btnStyle="btnStyle" />
+        <Button :btnStyle="btnStyle" 
+          isAddCart
+          @handleClickToBuy="handleClickToBuy"
+        />
       </template>
     </Parallax>
   </div>
@@ -37,7 +40,12 @@
   import Button from '@c/button/index.vue'
   import Parallax from '@c/parallax/index.vue'
 
+  import servicePath from '@utils/baseUrl.js'
+  import getTheRequiredData from '@utils/serviceApi/index.js'
+  import '@utils/mockData/commodityInfoData.js'
+  let {commodityInfoData} = servicePath
   export default {
+    name: 'detail',
     data() {
       return {
         navgigationBarStyle: {
@@ -51,11 +59,13 @@
           height: 300,
           data: []
         },
-        commodityData: "",
+        commodityData: {},
         btnStyle: {
           position: "fixed",
           bottom: 0,
-          left: 0
+          left: 0,
+          backgroundColor: '#ffffff',
+          borderTop: '1px solid #ccc'
         },
         MAX_HEIGHT: 100,
         opacity:  0
@@ -70,6 +80,17 @@
       scrollOnChange(e) {
         this.opacity = e / this.MAX_HEIGHT
         this.navgigationBarStyle.backgroundColor = 'rgba(216, 30, 6, ' + this.opacity + ')'
+      },
+      handleClickToBuy() {
+        this.$router.push({
+          name: 'buy',
+          params: {
+            routeType: 'push'
+          },
+          query: {
+            id: this.commodityData.id
+          }
+        })
       }
     },
     watch: {},
@@ -81,8 +102,12 @@
       Parallax 
     },
     created() {
-      this.swiperData.data = this.$route.params.commodity.swiperImgs
-      this.commodityData = this.$route.params.commodity
+      getTheRequiredData(commodityInfoData, {
+        params: this.$route.query.commodityId
+      }).then(res => {
+        this.commodityData = res.data
+        this.swiperData.data = res.data.swiperImgs
+      })
     }
   }
 </script>

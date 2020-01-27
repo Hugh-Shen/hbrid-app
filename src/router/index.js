@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'main',
+    name: 'root',
     component: Main
   },
   {
@@ -16,9 +16,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '@views/Commodity.vue')
   },
   {
-    path: '/CommodityDetail',
+    path: '/commodityDetail',
     name: 'detail',
     component: () => import(/* webpackChunkName: "about" */ '@views/CommodityDetail.vue')
+  },
+  {
+    path: '/buy',
+    name: 'buy',
+    component: () => import(/* webpackChunkName: "about" */ '@views/Buy.vue')
   }
 ]
 

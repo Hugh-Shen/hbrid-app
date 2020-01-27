@@ -179,8 +179,10 @@
         this.$router.push({
           name: 'detail',
           params: {
-            commodity: e,
             routeType: 'push'
+          },
+          query: {
+            commodityId: e.id
           }
         })
       },
