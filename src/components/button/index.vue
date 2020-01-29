@@ -2,7 +2,11 @@
   <div id='button-container'
     :style="btnStyle"
   >
-    <div  v-if="isAddCart">加入购物车</div>
+    <div  v-if="isAddCart"
+      @click="handleClickToShoppingCart"
+    >
+      加入购物车
+    </div>
     <div @click="handleClickToBuy"
       :style="btnStyle.children"
     >
@@ -33,6 +37,9 @@
     methods: {
       handleClickToBuy() {
         this.$emit('handleClickToBuy')
+      },
+      handleClickToShoppingCart() {
+        this.$emit('handleClickToShoppingCart')
       }
     }
   }

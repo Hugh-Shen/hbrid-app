@@ -62,7 +62,7 @@
         selectPayMent: {},
         btnStyle: {
           position: "fixed",
-          bottom: 0,
+          bottom: '20px',
           left: 0,
           children: {
             borderRadius: '20px'
@@ -89,10 +89,10 @@
     },
     created() {
       getTheRequiredData(commodityInfoData, {
+        method: 'post',
         params: this.$route.query.commodityId
       }).then(res => {
         this.commodityData = res.data
-        console.log(res.data)
       })
       this.selectPayMent = this.paymentData[0]
     }
@@ -158,6 +158,7 @@
           & > p:last-child {
             margin-top: 5px;
             font-size: $desc-font;
+            color: $color-gray;
           }
         }
         .select-icon {

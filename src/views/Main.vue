@@ -1,7 +1,9 @@
 <template>
   <div id='main'>
     <component :is='currentComponents'></component>
-    <TabBar @tabBarChangeView="tabBarChangeView"></TabBar>
+    <TabBar @tabBarChangeView="tabBarChangeView"
+      ref="tabBar"
+    />
   </div>
 </template>
 
@@ -18,6 +20,13 @@
     methods: {
       tabBarChangeView(arg) {
         this.currentComponents = arg
+      },
+      handlePageJumps() {
+        let index =  this.$route.params.componentIndex
+        if(index == 'undefined') {
+          return
+        }
+        this.$refs.tabBar.changePages(index)
       }
     },
     components: {
@@ -25,6 +34,9 @@
       Home: () => import('@views/Home.vue'),
       Cart: () => import('@views/Cart.vue'),
       My: () => import('@views/My.vue'),
+    },
+    activated() {
+      this.handlePageJumps()
     }
   }
 </script>

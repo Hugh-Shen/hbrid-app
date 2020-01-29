@@ -140,7 +140,6 @@
 <style lang="scss" scoped>
   #home {
     @include init-page();
-    position: absolute;
   }
   .activity-container {
     width: 100%;

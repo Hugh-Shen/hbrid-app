@@ -42,6 +42,9 @@
       handleChangeView(item, index) {
         this.selectItemIndex = index
         this.$emit('tabBarChangeView', item.componentsName)
+      },
+      changePages(index) {
+        this.handleChangeView(this.tabBarData[index], index)
       }
     }
   }

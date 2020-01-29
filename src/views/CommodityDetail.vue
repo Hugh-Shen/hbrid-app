@@ -27,6 +27,7 @@
         <Button :btnStyle="btnStyle" 
           isAddCart
           @handleClickToBuy="handleClickToBuy"
+          @handleClickToShoppingCart="handleClickToShoppingCart"
         />
       </template>
     </Parallax>
@@ -88,7 +89,21 @@
             routeType: 'push'
           },
           query: {
-            id: this.commodityData.id
+            commodityId: this.commodityData.id
+          }
+        })
+      },
+      handleClickToShoppingCart() {
+        this.$dialog({
+          title: '添加成功',
+          time: 400
+        })
+        this.$router.push({
+          name: 'root',
+          params: {
+            routeType: 'push',
+            componentIndex: 1,
+            clearStack: true
           }
         })
       }
@@ -103,6 +118,7 @@
     },
     created() {
       getTheRequiredData(commodityInfoData, {
+        method: 'post',
         params: this.$route.query.commodityId
       }).then(res => {
         this.commodityData = res.data

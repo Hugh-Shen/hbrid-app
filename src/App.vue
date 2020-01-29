@@ -13,7 +13,7 @@
     data() {
       return {
         transitionName: 'animation',
-        virtualStack: ['main']
+        virtualStack: ['root']
       }
     },
     watch: {
@@ -25,6 +25,9 @@
         }else {
           this.virtualStack.pop()
           this.transitionName = 'animationPush'
+        }
+        if(to.params.clearStack) {
+          this.virtualStack = ['root']
         }
       }
     }
