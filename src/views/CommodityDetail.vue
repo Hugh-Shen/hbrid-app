@@ -27,7 +27,7 @@
         <Button :btnStyle="btnStyle" 
           isAddCart
           @handleClickToBuy="handleClickToBuy"
-          @handleClickToShoppingCart="handleClickToShoppingCart"
+          @handleClickToShoppingCart="handleClickToShoppingCart(commodityData)"
         />
       </template>
     </Parallax>
@@ -93,7 +93,8 @@
           }
         })
       },
-      handleClickToShoppingCart() {
+      handleClickToShoppingCart(data) {
+        this.$store.commit('addToShoppingDCart',  data)
         this.$dialog({
           title: '添加成功',
           time: 400

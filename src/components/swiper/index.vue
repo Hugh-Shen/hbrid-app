@@ -26,7 +26,6 @@
     props: {
       swiperData: {
         type: Object,
-        required: true,
         default: function() {
           return {}
         }

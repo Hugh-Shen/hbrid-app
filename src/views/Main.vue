@@ -23,7 +23,7 @@
       },
       handlePageJumps() {
         let index =  this.$route.params.componentIndex
-        if(index == 'undefined') {
+        if(index == undefined) {
           return
         }
         this.$refs.tabBar.changePages(index)

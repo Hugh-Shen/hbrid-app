@@ -18,8 +18,7 @@
       />
       <div class="item-footer">
         <div :class="['item-footer-name', {'is-have-style': !item.isHave}]">
-          <span class="item-footer-tag" v-if="item.isDirect">直营</span>
-          <span class="item-footer-tag have" v-if="!item.isHave">缺货</span>
+          <Tag :tagData="item" />
           {{item.name}}
         </div>
         <div class="item-details">
@@ -32,6 +31,7 @@
 </template>
 
 <script>
+  import Tag from '@c/tag/index.vue'
   import getTheRequiredData from '@utils/serviceApi/index.js'
   import servicePath from '@utils/baseUrl.js'
   import '@utils/mockData/commodityData.js'
@@ -198,6 +198,9 @@
         this.setSortRule(newVal)
       }
     },
+    components: {
+      Tag
+    },
     created() {
       getTheRequiredData(commodityData).then(res => {
         this.commodityData = res.data.list
@@ -218,21 +221,13 @@
   }
   /* 公共样式 */
   .item-footer {
-    padding: 10px 0;
-    &-tag {
-     background: $color-theme;
-     padding: 0 8px;
-     border-radius: 5px;
-     color: $color-white;
-    }
-    .have {
-      background: $color-gray;
-    }
+    box-sizing: border-box;
+    padding: 5px 0;
     &-name {
      @include text-line();
      font-size: $base-font;
      font-weight: 700;
-     line-height: 26px;
+     line-height: 30px;
     }
     & > .is-have-style {
       color: $color-gray
@@ -323,7 +318,7 @@
         flex-grow: 1;
         height: 100%;
         margin-left: 20px;
-        padding: 10px 0;
+        padding: 5px 0;
         box-sizing: border-box;
         &-tag {
          background: $color-theme;
