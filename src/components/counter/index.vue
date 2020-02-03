@@ -39,10 +39,14 @@
       }
     },
     watch: {
-      count: function(newVal) {
-        this.number = newVal
+      count: {
+        handler(newVal) {
+          this.number = newVal
+        },
+        immediate: true
       },
       number: function(newVal) {
+        console.log(newVal)
         this.$emit('numberChange', newVal)
       }
     }
@@ -64,7 +68,7 @@
       width: 40px;
     }
     .count {
-      padding: 0 10px;
+      padding: 0 20px;
       background: $bg-color;
     }
   }

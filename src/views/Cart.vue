@@ -23,7 +23,9 @@
           </div>
           <div class="commodity-detail-footer">
             <div class="commodity-detail-footer-price">￥{{item.price | priceValue}}</div>
-            <Counter />
+            <Counter :count="item.number"
+              @numberChange="numberChangeEvent(arguments, item, index)"
+            />
           </div>
         </div>
       </div>
@@ -59,6 +61,13 @@
       },
       setAllSelections(isCheck) {
         return isCheck ? require('@assets/images/check.svg') : require('@assets/images/no-check.svg')
+      },
+      numberChangeEvent($arguments, item, index) {
+        let number  = $arguments[0]
+        this.$store.commit('changeSpecifiedData', {
+          index: index,
+          number: number
+        })
       }
     },
     components: {
