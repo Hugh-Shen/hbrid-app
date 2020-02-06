@@ -1,13 +1,13 @@
 <template>
   <div id="counter-container">
     <span :class="['minu', {'banned': number == 1}]" 
-      @click="handleClickMinu"
+      @click.stop="handleClickMinu"
     >
       -
     </span>
     <span class="count">{{number}}</span>
     <span class="minu" 
-      @click="handleAddCount"
+      @click.stop="handleAddCount"
     >
       +
     </span>
@@ -46,7 +46,6 @@
         immediate: true
       },
       number: function(newVal) {
-        console.log(newVal)
         this.$emit('numberChange', newVal)
       }
     }

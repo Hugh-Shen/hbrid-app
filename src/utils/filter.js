@@ -6,7 +6,10 @@ import Vue from 'vue'
  */
 
 Vue.filter('priceValue', function(value) {
-  let val = value ? parseFloat(value) : 0.00
+  if (!value) {
+    return '0.00';
+  }
+  let val =  parseFloat(value)
   if(isNaN(val)) {
     throw new Error('不是一个正确的类型')
   }

@@ -7,6 +7,7 @@
       <div class="shopping-item"
         v-for="(item, index) in shoppingCartData"
         :key="index"
+        @click="handleClickToSelections(item)"
       >
         <img class="item-check-icon"
           :src="setCheckIcon(item.isCheck)" 
@@ -30,17 +31,22 @@
         </div>
       </div>
     </div>
-    <div class="totalize-container">
+    <div class="totalize-container"
+      @click="handleClickToAllSelections"
+    >
       <img class="totalize-image"
-        :src="setAllSelections()" 
+        :src="setAllSelections(statisticsData.allSelections)" 
         alt="全选"
       >
       <span>全选</span>
       <div class="sum">
-        <p>合计：<span class="sum-money">￥0.00</span></p>
-        <p>总额 <span class="sum-money">￥0.00</span> 立减 <span class="sum-money">￥0.00</span></p>
+        <p>合计：<span class="sum-money">￥{{statisticsData.money | priceValue}}</span></p>
+        <p>总额 <span class="sum-money">
+          ￥{{statisticsData.money | priceValue}}
+          </span> 立减 <span class="sum-money">￥0.00</span>
+        </p>
       </div>
-      <div class="close-an-account">去结算</div>
+      <div class="close-an-account">去结算({{statisticsData.number}})</div>
     </div>
   </div>
 </template>
@@ -52,15 +58,31 @@
   export default {
     data() {
       return {
-        shoppingCartData: this.$store.state.shoppingData
+        shoppingCartData: this.$store.state.shoppingData,
+        statisticsData: {
+          allSelections: false,
+          number: 0,
+          money: 0.00
+        }
       }
     },
     methods: {
       setCheckIcon(isCheck) {
         return isCheck ? require('@assets/images/check.svg') : require('@assets/images/no-check.svg')
       },
+      handleClickToSelections(e) {
+        e.isCheck = !e.isCheck
+        this.computeAmount()
+      },
       setAllSelections(isCheck) {
         return isCheck ? require('@assets/images/check.svg') : require('@assets/images/no-check.svg')
+      },
+      handleClickToAllSelections() {
+        this.statisticsData.allSelections = !this.statisticsData.allSelections
+        this.shoppingCartData.forEach(item => {
+          item.isCheck = this.statisticsData.allSelections
+        });
+        this.computeAmount()
       },
       numberChangeEvent($arguments, item, index) {
         let number  = $arguments[0]
@@ -68,12 +90,34 @@
           index: index,
           number: number
         })
+        // 商品状态发生变化
+        if (item.isCheck) {
+          this.computeAmount();
+        }
+      },
+      computeAmount() {
+        this.statisticsData = {
+          allSelections: true,
+          number: 0,
+          money: 0.00
+        }
+        this.shoppingCartData.forEach(item => {
+          if(item.isCheck) {
+            this.statisticsData.money += parseFloat(item.price) * parseInt(item.number)
+            this.statisticsData.number += parseInt(item.number)
+          }else {
+            this.statisticsData.allSelections = false
+          }
+        })
       }
     },
     components: {
       NavigationBar,
       Tag,
       Counter
+    },
+    created() {
+      this.computeAmount()
     }
   }
 </script>
@@ -141,6 +185,7 @@
         flex: 1;
         & > p {
           .sum-money {
+            color: $color-theme;
             font-weight: 700;
           }
         }
