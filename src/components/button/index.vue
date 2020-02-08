@@ -10,7 +10,7 @@
     <div @click="handleClickToBuy"
       :style="btnStyle.children"
     >
-      立即购买
+      {{title}}
     </div>
   </div>
 </template>
@@ -27,6 +27,10 @@
       isAddCart: {
         type: Boolean,
         default: false
+      },
+      title: {
+        type: String,
+        default: '立即购买'
       }
     },
     data() {
