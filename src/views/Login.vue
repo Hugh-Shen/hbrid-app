@@ -20,8 +20,13 @@
     </div>
     <Button title="登录"
       :btnStyle="btnStyle"
+      @handleClickToBuy="handleClickToConfirmButton"
     />
-    <div class="register">注册新用户</div>
+    <div class="register"
+      @click="goToRegister"
+    >
+      注册新用户
+    </div>
   </div>
 </template>
 
@@ -49,6 +54,19 @@
         return this.$router.go(
           -1
         )
+      },
+      handleClickToConfirmButton() {
+        if(this.username.length == 0 || this.password.length == 0) {
+          return
+        }
+      },
+      goToRegister() {
+        this.$router.push({
+          name: 'register',
+          params: {
+            routeType: 'push'
+          }
+        })
       }
     },
     components: {
